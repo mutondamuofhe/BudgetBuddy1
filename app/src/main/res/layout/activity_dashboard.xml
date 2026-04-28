@@ -1,0 +1,60 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA">
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:text="@string/welcome_user"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnAddExpense"
+        android:text="Add Expense"
+        android:backgroundTint="#10A173"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnViewExpenses"
+        android:text="View Expenses"
+        android:backgroundTint="#00A8E1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnReports"
+        android:text="Reports"
+        android:backgroundTint="#F5A623"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnBudget"
+        android:text="Budget Goals"
+        android:backgroundTint="#10A173"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnRewards"
+        android:text="Rewards"
+        android:backgroundTint="#00A8E1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"/>
+
+</LinearLayout>

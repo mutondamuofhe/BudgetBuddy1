@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">BudgetBuddy1</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="welcome_user">Welcome, %1$s</string>
+    <string name="budget_text">Budget </string>
+    <string name="buddy_text">Buddy</string>
+    <string name="manage_money">Manage your money wisely</string>
+    <string name="dont_have_account">Don\'t have an account? </string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create your account</string>
+    <string name="already_have_account">Already have an account? </string>
+    <string name="agree_terms">I agree to the Terms of Service</string>
+</resources>
