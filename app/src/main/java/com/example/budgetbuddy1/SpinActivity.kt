@@ -34,7 +34,7 @@ class SpinActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val today = sdf.format(Date())
 
-        // Load Reward Data
+        // Load Reward Data for the specific user
         var userReward = db.rewardDao().getRewardForUser(userId)
         if (userReward == null) {
             userReward = Reward(userId, 0.0, "")
@@ -43,7 +43,7 @@ class SpinActivity : AppCompatActivity() {
         // Update UI with current balance
         tvBalance.text = "Balance: R${String.format("%.2f", userReward.totalBalance)}"
 
-        // Check if already spun today
+        // Logic for "Spin Once a Day": Checks if the last spin date matches today's date
         if (userReward.lastSpinDate == today) {
             btnSpin.isEnabled = false
             btnSpin.alpha = 0.5f

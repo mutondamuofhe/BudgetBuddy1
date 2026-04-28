@@ -89,7 +89,7 @@ class AddExpenseActivity : AppCompatActivity() {
             ).show()
         }
 
-        //  IMAGE PICKER
+        //  IMAGE PICKER: Uses ACTION_OPEN_DOCUMENT to allow selecting files from storage
         btnImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -97,7 +97,7 @@ class AddExpenseActivity : AppCompatActivity() {
             startActivityForResult(intent, 100)
         }
 
-        //  SAVE EXPENSE
+        //  SAVE EXPENSE: Validates input and saves to RoomDB
         saveBtn.setOnClickListener {
 
             val amtText = amount.text.toString().trim()
@@ -116,6 +116,7 @@ class AddExpenseActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Create Expense object
             val expense = Expense(
                 userId = userId,
                 amount = amt,
@@ -127,6 +128,7 @@ class AddExpenseActivity : AppCompatActivity() {
                 imageUri = imageUri?.toString()
             )
 
+            // Insert into Database
             db.expenseDao().insertExpense(expense)
 
             Toast.makeText(this, "Expense Saved", Toast.LENGTH_SHORT).show()
@@ -141,13 +143,14 @@ class AddExpenseActivity : AppCompatActivity() {
         }
     }
 
-    //  HANDLE IMAGE RESULT
+    //  HANDLE IMAGE RESULT: Takes persistable permission to ensure URI access after app restart
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
             imageUri = data?.data
             imageUri?.let {
+                // Securing persistable permission for the selected image
                 contentResolver.takePersistableUriPermission(
                     it,
                     Intent.FLAG_GRANT_READ_URI_PERMISSION
