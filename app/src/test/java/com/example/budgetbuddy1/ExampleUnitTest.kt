@@ -1,17 +1,16 @@
 package com.example.budgetbuddy1
 
+import org.junit.Assert.*
 import org.junit.Test
 
-import org.junit.Assert.*
-
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * Unit tests to verify core logic independently of the Android framework.
  */
 class ExampleUnitTest {
+
     @Test
     fun addition_isCorrect() {
+        // A simple test to verify that the test environment is configured correctly
         assertEquals(4, 2 + 2)
     }
 }
