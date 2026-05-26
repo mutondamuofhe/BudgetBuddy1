@@ -22,6 +22,7 @@ class DashboardActivity : AppCompatActivity() {
         val btnBudget = findViewById<Button>(R.id.btnBudget)
         val btnReports = findViewById<Button>(R.id.btnReports)
         val btnRewards = findViewById<Button>(R.id.btnRewards)
+        val btnProfile = findViewById<Button>(R.id.btnProfile)
 
         btnAddExpense.setOnClickListener {
             val intent = Intent(this, AddExpenseActivity::class.java)
@@ -49,6 +50,12 @@ class DashboardActivity : AppCompatActivity() {
 
         btnRewards.setOnClickListener {
             val intent = Intent(this, SpinActivity::class.java)
+            intent.putExtra("USER_ID", userId)
+            startActivity(intent)
+        }
+
+        btnProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("USER_ID", userId)
             startActivity(intent)
         }

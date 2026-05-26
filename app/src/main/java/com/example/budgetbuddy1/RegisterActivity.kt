@@ -44,6 +44,12 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // PASSWORD VALIDATION: Must contain letters, numbers, and special characters
+            if (!isValidPassword(pass)) {
+                Toast.makeText(this, "Password must contain letters, numbers, and special characters", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             // Use coroutine for database operations
             lifecycleScope.launch {
                 // Check if username already exists
@@ -63,5 +69,15 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    /**
+     * Validates that the password contains at least one letter, one digit, and one special character.
+     */
+    private fun isValidPassword(password: String): Boolean {
+        val hasLetter = password.any { it.isLetter() }
+        val hasDigit = password.any { it.isDigit() }
+        val hasSpecial = password.any { !it.isLetterOrDigit() }
+        return hasLetter && hasDigit && hasSpecial && password.length >= 6
     }
 }

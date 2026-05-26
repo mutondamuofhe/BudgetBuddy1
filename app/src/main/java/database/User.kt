@@ -8,6 +8,7 @@ data class User(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val username: String,
-    val email: String,  // NEW field
+    val email: String,
+    val phoneNumber: String = "", // NEW field for profile
     val password: String
 )
