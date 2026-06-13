@@ -1,13 +1,14 @@
 package com.example.budgetbuddy1
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.budgetbuddy1.database.AppDatabase
 import com.example.budgetbuddy1.database.Reward
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
@@ -26,7 +27,6 @@ class SpinActivity : AppCompatActivity() {
 
         val luckyWheel = findViewById<LuckyWheelView>(R.id.luckyWheel)
         val btnSpin = findViewById<Button>(R.id.btnSpin)
-        val btnBack = findViewById<ImageView>(R.id.btnBack)
         val tvResult = findViewById<TextView>(R.id.tvResult)
         val tvBalance = findViewById<TextView>(R.id.tvRewardBalance)
         val tvSpinMessage = findViewById<TextView>(R.id.tvSpinMessage)
@@ -34,67 +34,79 @@ class SpinActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val today = sdf.format(Date())
 
-        // Load Reward Data for the specific user
         var userReward = db.rewardDao().getRewardForUser(userId)
-        if (userReward == null) {
-            userReward = Reward(userId, 0.0, "")
-        }
+        if (userReward == null) userReward = Reward(userId, 0.0, "")
 
-        // Update UI with current balance
         tvBalance.text = "Balance: R${String.format("%.2f", userReward.totalBalance)}"
 
-        // Logic for "Spin Once a Day": Checks if the last spin date matches today's date
         if (userReward.lastSpinDate == today) {
             btnSpin.isEnabled = false
             btnSpin.alpha = 0.5f
             btnSpin.text = "Spun Today"
             tvSpinMessage.text = "Come back tomorrow for more rewards!"
-            tvResult.text = "You've already claimed your reward for today.\nSee you tomorrow!"
-        }
-
-        btnBack.setOnClickListener {
-            finish()
+            tvResult.text = "You've already claimed your reward for today."
         }
 
         btnSpin.setOnClickListener {
             if (isSpinning) return@setOnClickListener
-
             isSpinning = true
-            
-            // Generate a random degree (at least 5 full rotations + some extra)
             val randomDegrees = (Random.nextInt(5, 10) * 360) + Random.nextInt(0, 360)
             
             luckyWheel.startSpinning(randomDegrees.toFloat()) { index ->
                 isSpinning = false
                 val rewardText = luckyWheel.getSegmentText(index).replace("\n", " ")
-                
-                // Extract amount from reward text (e.g., "R5", "R10", "Badge")
-                val rewardAmount = if (rewardText.contains("R")) {
-                    rewardText.filter { it.isDigit() }.toDoubleOrNull() ?: 0.0
-                } else {
-                    0.0 // Non-cash reward
-                }
+                val rewardAmount = if (rewardText.contains("R")) rewardText.filter { it.isDigit() }.toDoubleOrNull() ?: 0.0 else 0.0
 
-                // Update Database (Moved into a thread-safe way)
                 val currentBalance = userReward?.totalBalance ?: 0.0
                 val newBalance = currentBalance + rewardAmount
                 val updatedReward = Reward(userId, newBalance, today)
-                
-                // Important: Update the local variable so subsequent logic uses the correct value
                 userReward = updatedReward
-
                 db.rewardDao().saveReward(updatedReward)
 
-                // Update UI
                 tvResult.text = "Congratulations!\nYou won $rewardText"
                 tvBalance.text = "Balance: R${String.format("%.2f", newBalance)}"
-                
                 btnSpin.isEnabled = false
                 btnSpin.alpha = 0.5f
                 btnSpin.text = "Spun Today"
-                tvSpinMessage.text = "Come back tomorrow for more rewards!"
-                
+                tvSpinMessage.text = "Come back tomorrow!"
                 Toast.makeText(this, "You won $rewardText!", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        setupBottomNavigation(userId)
+    }
+
+    private fun setupBottomNavigation(userId: Int) {
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        // No specific ID for Rewards in the menu yet, but we'll leave it unselected or highlight Home
+        bottomNav.selectedItemId = 0 
+        
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, DashboardActivity::class.java).apply { 
+                        putExtra("USER_ID", userId)
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    })
+                    true
+                }
+                R.id.nav_expenses -> {
+                    startActivity(Intent(this, ViewExpensesActivity::class.java).apply { putExtra("USER_ID", userId) })
+                    true
+                }
+                R.id.nav_add -> {
+                    startActivity(Intent(this, AddExpenseActivity::class.java).apply { putExtra("USER_ID", userId) })
+                    true
+                }
+                R.id.nav_reports -> {
+                    startActivity(Intent(this, ReportsActivity::class.java).apply { putExtra("USER_ID", userId) })
+                    true
+                }
+                R.id.nav_goals -> {
+                    startActivity(Intent(this, BudgetActivity::class.java).apply { putExtra("USER_ID", userId) })
+                    true
+                }
+                else -> false
             }
         }
     }

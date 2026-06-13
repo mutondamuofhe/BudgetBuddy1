@@ -2,4 +2,25 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="brand_green">#10A173</color>
+    <color name="brand_green_dark">#0D8A5D</color>
+    <color name="brand_purple">#6236FF</color>
+
+    <!-- Semantic Colors Light -->
+    <color name="app_background">#F5F7FF</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="primary_text">#0D1B2A</color>
+    <color name="secondary_text">#888888</color>
+    <color name="edit_text_bg">#FFFFFF</color>
+    <color name="edit_text_color">#000000</color>
+
+    <!-- Card Specifics Light -->
+    <color name="card_balance_bg">#E7F9F3</color>
+    <color name="card_expenses_bg">#EAF6FF</color>
+    <color name="card_budget_bg">#FFF4E6</color>
+    <color name="card_rewards_bg">#FFEAF1</color>
+    <color name="card_profile_bg">#EAFBFF</color>
+
+    <!-- Bottom Nav Light -->
+    <color name="nav_bg">#FFFFFF</color>
 </resources>

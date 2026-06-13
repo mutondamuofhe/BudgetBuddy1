@@ -1,8 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.BudgetBuddy1" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Brand Colors -->
+        <item name="colorPrimary">@color/brand_green</item>
+        <item name="colorSecondary">@color/brand_purple</item>
+
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/brand_green</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Global Text Colors -->
+        <item name="android:textColorPrimary">@color/primary_text</item>
     </style>
 
     <style name="Theme.BudgetBuddy1" parent="Base.Theme.BudgetBuddy1" />

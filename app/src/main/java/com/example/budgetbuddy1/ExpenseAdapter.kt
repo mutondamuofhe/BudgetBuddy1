@@ -34,9 +34,10 @@ class ExpenseAdapter(private val expenses: List<Expense>) :
 
         // IMAGE
         if (!exp.imageUri.isNullOrEmpty()) {
+            holder.image.visibility = View.VISIBLE
             holder.image.setImageURI(Uri.parse(exp.imageUri))
         } else {
-            holder.image.setImageResource(android.R.color.transparent)
+            holder.image.visibility = View.GONE
         }
     }
 }

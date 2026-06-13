@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="32dp"
     android:gravity="center_horizontal"
-    android:background="#FAFAFA">
+    android:background="@color/app_background">
 
     <!-- Logo -->
     <ImageView
@@ -28,14 +28,14 @@
             android:text="@string/budget_text"
             android:textSize="32sp"
             android:textStyle="bold"
-            android:textColor="#0D1B2A" />
+            android:textColor="@color/primary_text" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/buddy_text"
             android:textSize="32sp"
             android:textStyle="bold"
-            android:textColor="#10A173" />
+            android:textColor="@color/brand_green" />
     </LinearLayout>
 
     <!-- Subtitle -->
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="@string/manage_money"
         android:textSize="16sp"
-        android:textColor="#666666"
+        android:textColor="@color/secondary_text"
         android:layout_marginBottom="48dp" />
 
     <!-- Username Field -->
@@ -57,6 +57,8 @@
         android:paddingEnd="20dp"
         android:textSize="16sp"
         android:background="@drawable/rounded_input"
+        android:textColor="@color/edit_text_color"
+        android:textColorHint="@color/secondary_text"
         android:layout_marginBottom="16dp"
         android:inputType="text" />
 
@@ -71,6 +73,8 @@
         android:paddingEnd="20dp"
         android:textSize="16sp"
         android:background="@drawable/rounded_input"
+        android:textColor="@color/edit_text_color"
+        android:textColorHint="@color/secondary_text"
         android:layout_marginBottom="32dp" />
 
     <!-- Login Button -->
@@ -82,7 +86,7 @@
         android:textSize="18sp"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:backgroundTint="#0D1B2A"
+        android:backgroundTint="@color/brand_green"
         android:layout_marginBottom="24dp" />
 
     <!-- Register Link -->
@@ -95,7 +99,7 @@
             android:layout_height="wrap_content"
             android:text="@string/dont_have_account"
             android:textSize="14sp"
-            android:textColor="#666666" />
+            android:textColor="@color/secondary_text" />
         <TextView
             android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
@@ -103,7 +107,7 @@
             android:text="@string/sign_up"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="#10A173"
+            android:textColor="@color/brand_green"
             android:clickable="true"
             android:focusable="true" />
     </LinearLayout>

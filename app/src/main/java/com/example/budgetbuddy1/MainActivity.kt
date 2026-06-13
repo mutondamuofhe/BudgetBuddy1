@@ -1,9 +1,11 @@
 package com.example.budgetbuddy1
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.example.budgetbuddy1.database.AppDatabase
 import kotlinx.coroutines.launch
@@ -12,6 +14,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Apply saved theme preference
+        val sharedPref = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        if (sharedPref.getBoolean("DarkMode", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         setContentView(R.layout.activity_main)
 
         // Initializing UI components from layout

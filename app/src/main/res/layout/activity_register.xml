@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="@color/app_background"
     android:fillViewport="true">
 
     <LinearLayout
@@ -33,14 +33,14 @@
                 android:text="@string/budget_text"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="#0D1B2A" />
+                android:textColor="@color/primary_text" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/buddy_text"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="#10A173" />
+                android:textColor="@color/brand_green" />
         </LinearLayout>
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="@string/create_account"
             android:textSize="16sp"
-            android:textColor="#666666"
+            android:textColor="@color/secondary_text"
             android:layout_marginBottom="32dp" />
 
         <!-- Full Name Field -->
@@ -61,6 +61,8 @@
             android:paddingEnd="20dp"
             android:textSize="16sp"
             android:background="@drawable/rounded_input"
+            android:textColor="@color/edit_text_color"
+            android:textColorHint="@color/secondary_text"
             android:layout_marginBottom="16dp"
             android:inputType="textPersonName" />
 
@@ -75,6 +77,8 @@
             android:paddingEnd="20dp"
             android:textSize="16sp"
             android:background="@drawable/rounded_input"
+            android:textColor="@color/edit_text_color"
+            android:textColorHint="@color/secondary_text"
             android:layout_marginBottom="16dp" />
 
         <!-- Password Field -->
@@ -88,17 +92,9 @@
             android:paddingEnd="20dp"
             android:textSize="16sp"
             android:background="@drawable/rounded_input"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Terms Checkbox -->
-        <CheckBox
-            android:id="@+id/cbAgreeTerms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/agree_terms"
-            android:textSize="14sp"
-            android:textColor="#333333"
-            android:layout_marginBottom="24dp" />
+            android:textColor="@color/edit_text_color"
+            android:textColorHint="@color/secondary_text"
+            android:layout_marginBottom="32dp" />
 
         <!-- Sign Up Button -->
         <Button
@@ -109,7 +105,7 @@
             android:textSize="18sp"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#0D1B2A"
+            android:backgroundTint="@color/brand_green"
             android:layout_marginBottom="24dp" />
 
         <!-- Login Link -->
@@ -122,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/already_have_account"
                 android:textSize="14sp"
-                android:textColor="#666666" />
+                android:textColor="@color/secondary_text" />
             <TextView
                 android:id="@+id/tvLoginLink"
                 android:layout_width="wrap_content"
@@ -130,7 +126,7 @@
                 android:text="@string/login"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="#10A173"
+                android:textColor="@color/brand_green"
                 android:clickable="true"
                 android:focusable="true" />
         </LinearLayout>
