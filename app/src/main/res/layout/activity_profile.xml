@@ -6,13 +6,16 @@
     android:background="@color/app_background">
 
     <TextView
+        android:id="@+id/tvProfileTitle"
         android:text="My Profile"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/primary_text"
-        android:layout_marginBottom="32dp"
+        android:layout_margin="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ScrollView
         android:layout_width="match_parent"
