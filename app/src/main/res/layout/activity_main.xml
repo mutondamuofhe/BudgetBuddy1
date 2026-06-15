@@ -49,53 +49,35 @@
 
     <EditText
         android:id="@+id/etUsername"
-
         android:hint="@string/username"
-
         android:layout_width="match_parent"
         android:layout_height="56dp"
-
         android:padding="16dp"
         android:paddingStart="50dp"
-
         android:textSize="16sp"
-
         android:background="@drawable/rounded_input"
-
         android:textColor="@color/edit_text_color"
         android:textColorHint="@color/secondary_text"
-
         android:drawableStart="@drawable/ic_person"
         android:drawablePadding="12dp"
-
         android:layout_marginBottom="16dp"
-
         android:inputType="text"/>
 
+    <!-- Password Field-->
     <EditText
         android:id="@+id/etPassword"
-
         android:hint="@string/password"
-
         android:layout_width="match_parent"
         android:layout_height="56dp"
-
         android:padding="16dp"
         android:paddingStart="50dp"
-
         android:textSize="16sp"
-
         android:background="@drawable/rounded_input"
-
         android:textColor="@color/edit_text_color"
         android:textColorHint="@color/secondary_text"
-
         android:drawableStart="@drawable/ic_lock"
-
         android:drawablePadding="12dp"
-
         android:layout_marginBottom="32dp"
-
         android:inputType="textPassword"/>
 
     <!-- Login Button -->
