@@ -5,6 +5,18 @@
     android:layout_height="match_parent"
     android:background="@color/app_background">
 
+    <TextView
+        android:id="@+id/tvProfileTitle"
+        android:text="My Profile"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,14 +29,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="My Profile"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/primary_text"
-                android:layout_marginBottom="32dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <!-- Profile Picture -->
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/profile_placeholder"
+                android:background="@drawable/profile_circle"
+                android:padding="25dp"
+                android:scaleType="center"
+                android:contentDescription="Profile Picture"/>
+
 
             <EditText
                 android:id="@+id/etProfileEmail"
