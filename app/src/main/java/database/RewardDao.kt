@@ -6,8 +6,11 @@ import androidx.room.*
 interface RewardDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveReward(reward: Reward)
+    suspend fun saveReward(reward: Reward)
 
-    @Query("SELECT * FROM rewards WHERE userId = :userId LIMIT 1")
-    fun getRewardForUser(userId: Int): Reward?
+    @Query("SELECT * FROM rewards WHERE userId = :userId")
+    suspend fun getAllRewardsForUser(userId: Int): List<Reward>
+
+    @Query("SELECT * FROM rewards WHERE userId = :userId ORDER BY id DESC LIMIT 1")
+    suspend fun getLatestRewardForUser(userId: Int): Reward?
 }

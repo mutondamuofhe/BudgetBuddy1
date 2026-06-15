@@ -6,9 +6,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.budgetbuddy1.database.AppDatabase
 import com.example.budgetbuddy1.database.Reward
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
@@ -34,42 +36,49 @@ class SpinActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val today = sdf.format(Date())
 
-        var userReward = db.rewardDao().getRewardForUser(userId)
-        if (userReward == null) userReward = Reward(userId, 0.0, "")
+        lifecycleScope.launch {
+            // Check if already spun today
+            val latestReward = db.rewardDao().getLatestRewardForUser(userId)
+            val allRewards = db.rewardDao().getAllRewardsForUser(userId)
+            val totalBalance = allRewards.sumOf { it.amount }
 
-        tvBalance.text = "Balance: R${String.format("%.2f", userReward.totalBalance)}"
+            // Update UI with current total balance
+            tvBalance.text = "Balance: R${String.format("%.2f", totalBalance)}"
 
-        if (userReward.lastSpinDate == today) {
-            btnSpin.isEnabled = false
-            btnSpin.alpha = 0.5f
-            btnSpin.text = "Spun Today"
-            tvSpinMessage.text = "Come back tomorrow for more rewards!"
-            tvResult.text = "You've already claimed your reward for today."
-        }
-
-        btnSpin.setOnClickListener {
-            if (isSpinning) return@setOnClickListener
-            isSpinning = true
-            val randomDegrees = (Random.nextInt(5, 10) * 360) + Random.nextInt(0, 360)
-            
-            luckyWheel.startSpinning(randomDegrees.toFloat()) { index ->
-                isSpinning = false
-                val rewardText = luckyWheel.getSegmentText(index).replace("\n", " ")
-                val rewardAmount = if (rewardText.contains("R")) rewardText.filter { it.isDigit() }.toDoubleOrNull() ?: 0.0 else 0.0
-
-                val currentBalance = userReward?.totalBalance ?: 0.0
-                val newBalance = currentBalance + rewardAmount
-                val updatedReward = Reward(userId, newBalance, today)
-                userReward = updatedReward
-                db.rewardDao().saveReward(updatedReward)
-
-                tvResult.text = "Congratulations!\nYou won $rewardText"
-                tvBalance.text = "Balance: R${String.format("%.2f", newBalance)}"
+            if (latestReward?.spinDate == today) {
                 btnSpin.isEnabled = false
                 btnSpin.alpha = 0.5f
                 btnSpin.text = "Spun Today"
-                tvSpinMessage.text = "Come back tomorrow!"
-                Toast.makeText(this, "You won $rewardText!", Toast.LENGTH_LONG).show()
+                tvSpinMessage.text = "Come back tomorrow for more rewards!"
+                tvResult.text = "You've already claimed your reward for today."
+            }
+
+            btnSpin.setOnClickListener {
+                if (isSpinning) return@setOnClickListener
+                isSpinning = true
+                val randomDegrees = (Random.nextInt(5, 10) * 360) + Random.nextInt(0, 360)
+
+                luckyWheel.startSpinning(randomDegrees.toFloat()) { index ->
+                    isSpinning = false
+                    val rewardText = luckyWheel.getSegmentText(index).replace("\n", " ")
+                    val rewardAmount = if (rewardText.contains("R")) rewardText.filter { it.isDigit() }.toDoubleOrNull() ?: 0.0 else 0.0
+
+                    lifecycleScope.launch {
+                        val newReward = Reward(userId = userId, amount = rewardAmount, spinDate = today)
+                        db.rewardDao().saveReward(newReward)
+
+                        val updatedAllRewards = db.rewardDao().getAllRewardsForUser(userId)
+                        val newTotalBalance = updatedAllRewards.sumOf { it.amount }
+
+                        tvResult.text = "Congratulations!\nYou won $rewardText"
+                        tvBalance.text = "Balance: R${String.format("%.2f", newTotalBalance)}"
+                        btnSpin.isEnabled = false
+                        btnSpin.alpha = 0.5f
+                        btnSpin.text = "Spun Today"
+                        tvSpinMessage.text = "Come back tomorrow!"
+                        Toast.makeText(this@SpinActivity, "You won $rewardText!", Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
 

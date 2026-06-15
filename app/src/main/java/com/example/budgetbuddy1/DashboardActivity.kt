@@ -27,16 +27,16 @@ class DashboardActivity : AppCompatActivity() {
 
         // Load Financial Overview and User Data
         lifecycleScope.launch {
-            // 0. Fetch User Name from DB (Robust way to keep name updated)
+            // 0. Fetch User Name from DB
             val user = db.userDao().getUserById(userId)
             user?.let {
                 findViewById<TextView>(R.id.tvWelcome).text = it.username
             }
 
-            // 1. Reward Balance
-            val reward = db.rewardDao().getRewardForUser(userId)
-            val balance = reward?.totalBalance ?: 0.0
-            findViewById<TextView>(R.id.tvSummaryBalance).text = formatCurrency(balance)
+            // 1. Reward Balance (Sum of all rewards)
+            val allRewards = db.rewardDao().getAllRewardsForUser(userId)
+            val totalRewardBalance = allRewards.sumOf { it.amount }
+            findViewById<TextView>(R.id.tvSummaryBalance).text = formatCurrency(totalRewardBalance)
 
             // 2. Total Expenses
             val expenses = db.expenseDao().getExpensesForUser(userId)

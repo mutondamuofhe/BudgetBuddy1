@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
  * Room Database class for the application.
  * Defines the entities included in the database and the version number.
  */
-@Database(entities = [User::class, Expense::class, Budget::class, Reward::class, Category::class], version = 9)
+@Database(entities = [User::class, Expense::class, Budget::class, Reward::class, Category::class], version = 10)
 abstract class AppDatabase : RoomDatabase() {
 
     // DAOs (Data Access Objects) for each table

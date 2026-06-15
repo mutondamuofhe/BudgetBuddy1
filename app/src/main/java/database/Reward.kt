@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "rewards")
 data class Reward(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val userId: Int,
-    val totalBalance: Double,
-    val lastSpinDate: String // Format: "yyyy-MM-dd"
+    val amount: Double,
+    val spinDate: String // Format: "yyyy-MM-dd"
 )
